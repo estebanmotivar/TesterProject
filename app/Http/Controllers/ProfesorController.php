@@ -281,8 +281,6 @@ class ProfesorController extends Controller
         return redirect()->route('profesores.index');
     }
 
-
-
     
 
 

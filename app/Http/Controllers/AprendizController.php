@@ -11,6 +11,9 @@ use App\Models\SolicitudAgenda;
 
 use App\Models\Profesor;
 
+use App\Models\Comentario;
+
+
 class AprendizController extends Controller
 {
     /**
@@ -64,14 +67,14 @@ class AprendizController extends Controller
      */
     public function show(Aprendiz $aprendiz) 
     {   
-        $idaprendiz = $aprendiz->idaprendiz;
+        session(['idAprendiz' => $aprendiz->idaprendiz]);
         $clase = Clase::join('profesores','profesores.idprofesor','=','clases.idprofesor')
         ->join('categorias','categorias.idcategoria','=','clases.idcategoria')
         ->select('clases.idclase', 'clases.nombre', 'clases.idcategoria', 'categorias.nombre as nomins', 'clases.descripcion', 'clases.fecha', 'clases.horainicio', 'clases.horafin', 'clases.costo','clases.cupos','profesores.nombre as nameprofe')
         ->where('fecha', '>' ,now())
         ->orderby('clases.nombre', 'ASC')
         ->get();
-        return view('aprendiz.show', ['clase' => $clase, 'idaprendiz' => $idaprendiz]); 
+        return view('aprendiz.show', ['clase' => $clase]);
     
     }
     
@@ -155,5 +158,24 @@ class AprendizController extends Controller
         return redirect()->route('aprendices.index')->with('success', 'Agenda enviada exitosamente, espere por la confirmación por favor.');
     }
      
+    public function comenaprendiz()
+    {
+        $idAprendiz = session('idAprendiz');
+        return view('aprendiz/crearcomentario', ['codigo' => $idAprendiz]);
+    }
+
+    public function aprendizcomenstore(Request $request)
+    {
+        // Accede al valor de idAprendiz directamente desde la sesión
+        Comentario::create([
+            'idaprendiz' => session('idAprendiz'),
+            'descripcion' => $request->input('descripcion'),
+            'fechahora' => now(),
+            'tipo' => $request->input('tipo')
+        ]);
+    
+        return redirect()->route('aprendices.index')->with('success', 'Comentario realizado con exito, gracias!!');;
+    }
+    
 
 }

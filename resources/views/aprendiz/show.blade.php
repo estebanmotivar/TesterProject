@@ -35,7 +35,7 @@
                 <td style="border:2px solid black; padding:10px">{{$class->nameprofe}}</td>
                 @if ($class->cupos>0)
                 <td style="padding:10px">
-                    <a href="{{ route('agendar.clase', ['idclase' => $class->idclase, 'idaprendiz' => $idaprendiz]) }}">
+                    <a href="{{ route('agendar.clase', ['idclase' => $class->idclase]) }}">
                    <button>Agendar</button>
                     </a>
                 </td>
@@ -45,7 +45,7 @@
         </table>
     </div>
      <div style="text-align: center; margin-top:2%">
-        <a href={{route ('profesores.createcomentario')}}><button >Realizar comentario</button></a>
+        <a href="{{ route('aprendiz.comenaprendiz') }}"><button>Realizar comentario</button></a>
     </div>
 </body>
 </html>

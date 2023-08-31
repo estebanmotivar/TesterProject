@@ -21,8 +21,8 @@
             <label for="descripcion">Digite su comentario</label>
             <textarea style="margin-left: 2%; position:relative; top:50px" name="descripcion" id="descripcion" cols="60" rows="8"></textarea>
             <br><br><br>
-            {{-- <Label>Frcha y hora en la que hace el comentario</Label>
-            <input type="datetime-local" name="fechahora" id=""> --}}
+            
+            <input type="hidden" name="idprofesor" id="idprofesor" value={{$codigo}}> 
             <br><br><br>
             <label for="tipo">Tipo de comentario (Queja, Reclamo o Sugerencia)</label>
             <input style="margin-left: 2%" type="text" name="tipo" id="tipo">

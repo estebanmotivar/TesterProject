@@ -86,6 +86,9 @@ Route::get('Profesores/verperfilagendado/{id}','App\Http\Controllers\ProfesorCon
 //Crear comentario
 Route::get('Profesores/crearcomentario/{profecodigo}','App\Http\Controllers\ProfesorController@comentcreate')->name('profesores.createcomentario');
 Route::post('Profesores/agregarcomentario','App\Http\Controllers\ProfesorController@comentstore')->name('profesores.comentarstore');
+Route::get('aprendiz/comenaprendiz', 'App\Http\Controllers\AprendizController@comenaprendiz')->name('aprendiz.comenaprendiz');
+Route::post('aprendiz/agregarcomentario','App\Http\Controllers\AprendizController@aprendizcomenstore')->name('aprendiz.comentarstore');
+
 
 
 
