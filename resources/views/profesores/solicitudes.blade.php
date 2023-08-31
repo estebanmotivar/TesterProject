@@ -20,6 +20,7 @@
             <tr>
                 <td style="border:2px solid black; padding:5px">Nombre Aprendiz</td>
                 <td style="border:2px solid black; padding:5px">Nombre Clase</td>
+                <td style="border:2px solid black; padding:5px">Cupos</td>
                 <td style="border:2px solid black; padding:5px">Fecha Agendada</td>
                 <td style="border:2px solid black; padding:5px">Agenda Realizada El:</td>
                 <td style="border:2px solid black; padding:5px">Descripcion</td>
@@ -29,16 +30,20 @@
                 <tr>
                 <td style="border-right:2px solid black; padding:10px">{{$solic->nomapren}}</td>
                 <td  style="border-right:2px solid black; padding:10px">{{$solic->nomclas}}</td>
+                <td  style="border-right:2px solid black; padding:10px">{{$solic->numcups}}</td>
                 <td name="fechaagendada" style="border-right:2px solid black; padding:10px">{{$solic->fechaagendada}}</td>
                 <td name="fechahora" style="border-right:2px solid black; padding:10px">{{$solic->fechahora}}</td>
                 <td name="descripcion" style="border-right:2px solid black; padding:10px">{{$solic->descripcion}}</td>
-    
+                @if ($solic->numcups > 0)
                 <td>
                     <form action="{{ route('profesores.confirmstore', ['id1' => $solic->idaprendiz, 'id2' => $solic->idclase, 'id3' => $solic->fechaagendada, 'id4' => $solic->fechahora, 'id5' => $solic->descripcion, 'id6' => $solic->idsolicitudagenda ]) }}" method="POST">
                         @csrf
+                       
                         <button type="submit">Aceptar</button>
+                    
                     </form>
                 </td>
+                @endif
                 <td>
                     <a href="{{route('profesores.rechazo',$solic->idsolicitudagenda)}}"><button>Rechazar</button></a>
                 </td>
@@ -48,8 +53,6 @@
             @endforelse
         </table>
     </div>
-    <a href="{{ route('menu') }}" class="btn">Volver</a>
 </body>
 </html>
-
 

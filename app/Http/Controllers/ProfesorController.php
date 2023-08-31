@@ -9,6 +9,7 @@ use DB;
 use App\Models\Categoria;
 use App\Models\Agenda;
 use App\Models\Comentario;
+use App\Models\SolicitudAgenda;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -19,7 +20,7 @@ class ProfesorController extends Controller
      */
     public function index()
     {
-        $codigo = 2; // El ID del profesor
+        $codigo = 13; // El ID del profesor
         $clase = DB::table('clases')
             ->join('profesores', 'profesores.idprofesor', '=', 'clases.idprofesor')
             ->join('categorias', 'categorias.idcategoria', '=', 'clases.idcategoria')
@@ -192,8 +193,8 @@ class ProfesorController extends Controller
         $solicitudagenda = DB::table('solicitudagendas')
                     ->join('aprendizes','aprendizes.idaprendiz','=','solicitudagendas.idaprendiz')
                     ->join('clases','clases.idclase','=','solicitudagendas.idclase')
-                    ->select('solicitudagendas.idsolicitudagenda','aprendizes.idaprendiz','aprendizes.nombre as nomapren','clases.idclase','clases.idprofesor','clases.nombre as nomclas','clases.cupos as numcups','solicitudagendas.fechaagendada','solicitudagendas.fechahora','solicitudagendas.descripcion')
-                    ->where('clases.idprofesor','=',$codigo)
+                    ->select('solicitudagendas.idsolicitudagenda','aprendizes.idaprendiz','aprendizes.nombre as nomapren','clases.idclase','clases.idprofesor','clases.nombre as nomclas','clases.cupos as numcups','solicitudagendas.fechaagendada','solicitudagendas.fechahora','solicitudagendas.descripcion','solicitudagendas.documento')
+                    ->where('solicitudagendas.idsolicitudagenda','=',10)
                     ->orderby('nomclas','ASC')
                     ->get();
 
