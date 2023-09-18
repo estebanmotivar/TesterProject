@@ -18,14 +18,19 @@
         @csrf
         <br>
         <div>
+            <div>
+                <label for="tipo">Tipo de comentario</label>
+                <select name="tipo">
+                    <option value="Queja" >Queja</option>
+                    <option value="Reclamo" >Reclamo</option>
+                    <option value="Sugerencia" >Sugerencia</option>
+                </select>
+            </div>
+            <p></p>
             <label for="descripcion">Digite su comentario</label>
-            <textarea style="margin-left: 2%; position:relative; top:50px" name="descripcion" id="descripcion" cols="60" rows="8"></textarea>
-            <br><br><br>
-            
-            <input type="hidden" name="idprofesor" id="idprofesor" value={{$codigo}}> 
-            <br><br><br>
-            <label for="tipo">Tipo de comentario (Queja, Reclamo o Sugerencia)</label>
-            <input style="margin-left: 2%" type="text" name="tipo" id="tipo">
+            <textarea style=" position:relative; top:30px" name="descripcion" id="descripcion" cols="60" rows="8"></textarea>
+            <p></p>
+        </div>
         </div>
         <br>
         <button>Enviar</button>

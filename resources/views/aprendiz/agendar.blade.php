@@ -33,15 +33,13 @@
          </tr>
     </table>
 
-    <form action="{{ route('agendar.store', ['idclase' => $clase->idclase]) }}" method="POST" class="fade-in">
+    <form action="{{ route('profesores.confirmstore', ['idclase' => $clase->idclase]) }}" method="POST" class="fade-in">
         @csrf
         <input type="hidden" name="idclase" value="{{ $clase->idclase }}">
-        <label for="documento">Digita Tu Documento Completo: </label>
-        <input type="number" name="documento" id="documento">
-        <label for="fechahora">Fecha Hora:</label>
-        <input type="datetime-local" id="fechahora" name="fechahora">
-        <label for="fechaagendada"></label>
-        <input type="hidden" id="fechaagendada" name="fechaagendada">
+        <label for="fechahora">Hora:</label>
+        <input type="time" id="fechahora" name="fechahora">
+        <label for="fechaagendada">Fecha:</label>
+        <input type="date" id="fechaagendada" name="fechaagendada">
         <br>
 
         <label for="descripcion">Descripción:</label>

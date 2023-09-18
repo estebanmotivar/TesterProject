@@ -12,7 +12,6 @@
     <br>
     <div style="text-align: center; position:absolute:50%">
         <a href="{{ route('profesores.create', $codigo) }}"><button>Crear clase</button></a> <br><br>
-    <a href="{{route ('profesores.solicitudes',$codigo)}}"><button >Solicitudes</button></a> <br><br>
     <a href="{{route ('profesores.perfill',$codigo)}}"><button >Perfil</button></a> <br>
     <br>
     <br>

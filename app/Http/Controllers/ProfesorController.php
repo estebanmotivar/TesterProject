@@ -185,28 +185,6 @@ class ProfesorController extends Controller
        
     }
 
-    //aceptar o rechazar solicitudes
-    public function solicitud($codigo)
-    {
-
-        //
-        $solicitudagenda = DB::table('solicitudagendas')
-                    ->join('aprendizes','aprendizes.idaprendiz','=','solicitudagendas.idaprendiz')
-                    ->join('clases','clases.idclase','=','solicitudagendas.idclase')
-                    ->select('solicitudagendas.idsolicitudagenda','aprendizes.idaprendiz','aprendizes.nombre as nomapren','clases.idclase','clases.idprofesor','clases.nombre as nomclas','clases.cupos as numcups','solicitudagendas.fechaagendada','solicitudagendas.fechahora','solicitudagendas.descripcion','solicitudagendas.documento')
-                    ->where('solicitudagendas.idsolicitudagenda','=',10)
-                    ->orderby('nomclas','ASC')
-                    ->get();
-
-    return view ('profesores/solicitudes',['solicitudagenda'=>$solicitudagenda]);
-    }
-    //eliminar la solicitud
-    public function destroysoli(string $id)
-    {
-        //
-        DB::table('solicitudagendas')->where('idsolicitudagenda', $id)->delete();
-        return redirect()->route('profesores.solicitudes');
-    }
 
     //mostrar agendas
     public function showagends(string $id)
@@ -237,44 +215,39 @@ class ProfesorController extends Controller
     }
 
     //almacenar agenda confirmada
-    public function agendconfirmstore(string $id1, string $id2, string $id3, string $id4, string $id5, string $id6)
+    public function agendconfirmstore(Request $request)
     {   
     Agenda::create([
-        'idaprendiz' => $id1,
-        'idclase' => $id2,
-        'fechaagendada' => $id3,
-        'fechahora' => $id4,
-        'descripcion' => $id5
+        'idclase'=>$request['idclase'],
+        'fechaagendada'=>$request['fechaagendada'],
+        'fechahora'=>$request['fechahora'],
+        'descripcion'=>$request['descripcion'],
     ]);
-   
-    DB::table('solicitudagendas')->where('idsolicitudagenda', $id6)->delete();
-
-    $clase = Clase::find($id2);
+    
+    $clase = Clase::find('idclase');
     if ($clase) {
         $clase->cupos = $clase->cupos - 1;
         $clase->save();
     }
     $codigo = Clase:: select('idprofesor')
-                    ->where('idclase','=',$id2)
+                    ->where('idclase','=','idclase')
                     ->get();
 
-    return redirect()->route('profesores.solicitudes',['codigo'=>$codigo]);
+    return redirect()->route('profesores.index',['codigo'=>$codigo]);
     }
 
     //comentarios
     //crear comentario
-    public function comentcreate($profecodigo)
+    public function comentcreate()
     {
         //
-        $codigo = $profecodigo;
-        return view ('profesores/comentario',[ 'codigo' => $codigo]);
+        return view ('profesores/comentario');
     }
     //almacenar comentario creado
     public function comentstore(Request $request)
     {
         //
         Comentario::create([
-            'idprofesor'=>$request['idprofesor'],
             'descripcion'=>$request['descripcion'],
             'fechahora'=>now(),
             'tipo'=>$request['tipo']

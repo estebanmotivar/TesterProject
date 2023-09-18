@@ -139,6 +139,7 @@ class AprendizController extends Controller
         $data = $request->validate([
             'fechahora' => 'required',
             'descripcion' => 'required|max:500',
+            'fechaagendada' => 'required',
             'documento' => 'required|max:100',
         ]);
         
@@ -146,29 +147,28 @@ class AprendizController extends Controller
     
         $clase = Clase::findOrFail($idclase);
     
-        $agenda = new SolicitudAgenda([
+        $agenda = new Agenda([
             'fechahora' => $data['fechahora'],
             'descripcion' => $data['descripcion'],
             'fechaagendada' => $data['fechaagendada'],
             'documento' => $data['documento'],
         ]);
     
-        $clase->solicitudagendas()->save($agenda);
+        $clase->agendas()->save($agenda);
     
         return redirect()->route('aprendices.index')->with('success', 'Agenda enviada exitosamente, espere por la confirmación por favor.');
     }
      
     public function comenaprendiz()
     {
-        $idAprendiz = session('idAprendiz');
-        return view('aprendiz/crearcomentario', ['codigo' => $idAprendiz]);
+        
+        return view('aprendiz/crearcomentario');
     }
 
     public function aprendizcomenstore(Request $request)
     {
         // Accede al valor de idAprendiz directamente desde la sesión
         Comentario::create([
-            'idaprendiz' => session('idAprendiz'),
             'descripcion' => $request->input('descripcion'),
             'fechahora' => now(),
             'tipo' => $request->input('tipo')

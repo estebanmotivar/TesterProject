@@ -68,12 +68,8 @@ Route::post('Profesores/agregar','App\Http\Controllers\ProfesorController@store'
 //editar y eliminar clase
 Route::get('Profesores/editclase/{id}','App\Http\Controllers\ProfesorController@editclass')->name('profesores.editarclases');
 Route::get('Profesores/actualizarclase/{id}','App\Http\Controllers\ProfesorController@updateclass')->name('profesores.updateclass');
-//solicitudes
-Route::get('Profesores/solicitudes/{codigo}','App\Http\Controllers\ProfesorController@solicitud')->name('profesores.solicitudes');
-//rechazar solicitud
-Route::get('Profesores/rechazar/{id}','App\Http\Controllers\ProfesorController@destroysoli')->name('profesores.rechazo');
 //aceptar solicitud
-Route::post('Profesores/aceptar/{id1}/{id2}/{id3}/{id4}/{id5}/{id6}', 'App\Http\Controllers\ProfesorController@agendconfirmstore')->name('profesores.confirmstore');
+Route::post('Profesores/aceptar/{idclase}', 'App\Http\Controllers\ProfesorController@agendconfirmstore')->name('profesores.confirmstore');
 
 
 
